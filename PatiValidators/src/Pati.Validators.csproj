@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Marcos de Aguiar</Copyright>
+    <Description>Some validators to be used accross projects.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PatiValidationCore\src\Pati.Validation.Core.csproj" />
+  </ItemGroup>
+
+</Project>

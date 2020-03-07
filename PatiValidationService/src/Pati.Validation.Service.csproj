@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Has the validation attribute adapter and validation attribute adapter provider for the custom validators, so i18n is possible.</Description>
+    <Copyright>Marcos de Aguiar</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PatiCore\src\Pati.Core.csproj" />
+    <ProjectReference Include="..\..\PatiValidationCore\src\Pati.Validation.Core.csproj" />
+  </ItemGroup>
+
+</Project>

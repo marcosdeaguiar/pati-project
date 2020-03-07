@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Marcos de Aguiar</Copyright>
+    <Description>Middlewares and action filters to be used in asp.net core applications.</Description>
+    <RootNamespace>Pati.Middleware</RootNamespace>
+    <AssemblyName>Pati.Middleware</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PatiCore\src\Pati.Core.csproj" />
+    <ProjectReference Include="..\..\PatiValidationCore\src\Pati.Validation.Core.csproj" />
+  </ItemGroup>
+
+</Project>
