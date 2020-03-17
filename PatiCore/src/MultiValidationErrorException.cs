@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pati.Validation.Core
+namespace Pati.Core
 {
     /// <summary>
     /// Throw when there are multiple validation errors in the request.
     /// </summary>
-    public class MultiValidationErrorException: Exception
+    public class MultiValidationErrorException : Exception
     {
         /// <summary>
         /// Returns the status code.
@@ -18,7 +18,7 @@ namespace Pati.Validation.Core
         /// <summary>
         /// Default constructor with default message.
         /// </summary>
-        public MultiValidationErrorException(): base("Bad request.")
+        public MultiValidationErrorException() : base("Bad request.")
         {
             Status = 400;
         }

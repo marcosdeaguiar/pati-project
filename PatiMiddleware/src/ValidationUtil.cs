@@ -1,7 +1,7 @@
-﻿using Pati.Validation.Core;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
+using Pati.Core;
 
 namespace Pati.Middleware
 {

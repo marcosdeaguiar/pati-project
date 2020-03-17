@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PatiCore\src\Pati.Core.csproj" />
-    <ProjectReference Include="..\..\PatiValidationCore\src\Pati.Validation.Core.csproj" />
   </ItemGroup>
 
 </Project>

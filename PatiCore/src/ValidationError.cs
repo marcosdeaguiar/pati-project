@@ -1,4 +1,8 @@
-﻿namespace Pati.Validation.Core
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Pati.Core
 {
     /// <summary>
     /// Class that represents validation errors that will be sent back to the user.
