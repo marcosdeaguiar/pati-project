@@ -6,7 +6,7 @@ namespace Pati.EFUtils
     /// <summary>
     /// Methods to change the default table naming in Entity Framework Core.
     /// </summary>
-    class DbContextNamingHelper
+    public class DbContextNamingHelper
     {
         /// <summary>
         /// Changes the naming schema from default Entity Framework Core to

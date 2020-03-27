@@ -10,11 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\PatiCore\src\Pati.Core.csproj" />
+    <ProjectReference Include="..\..\PatiInfrastructure\src\Pati.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
