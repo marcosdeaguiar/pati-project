@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Pati.Middleware
 {
@@ -49,7 +50,20 @@ namespace Pati.Middleware
                                                              validationParameters,
                                                              out var rawValidatedToken);
                     //rawValidatedToken.
-                    context.User = claimsPrincipal;
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity();
+                    foreach (var claim in claimsPrincipal.Claims)
+                    {
+                        if (claim.Type == "iat" ||
+                            claim.Type == "exp" ||
+                            claim.Type == "nbf")
+                        {
+                            continue;
+                        }
+
+                        claimsIdentity.AddClaim(claim);
+                    }
+                    ClaimsPrincipal newPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    context.User = newPrincipal;
 
                     var jwtToken = rawValidatedToken as JwtSecurityToken;
                     context.Items[Constants.JwtTokenKey] = jwtToken;
