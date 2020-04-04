@@ -50,7 +50,7 @@ namespace Pati.Middleware
                                                              validationParameters,
                                                              out var rawValidatedToken);
                     //rawValidatedToken.
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity();
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity("AuthenticationTypes.Federation");
                     foreach (var claim in claimsPrincipal.Claims)
                     {
                         if (claim.Type == "iat" ||
