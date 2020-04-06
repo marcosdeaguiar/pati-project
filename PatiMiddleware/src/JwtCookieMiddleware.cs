@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace Pati.Middleware
 {
@@ -15,9 +18,17 @@ namespace Pati.Middleware
         /// Checks the jwt cookie and sets the user for the application.
         /// </summary>
         /// <param name="app">App builder reference.</param>
+        /// <param name="antiforgery">Reference to the antiforgery service.</param>
         /// <param name="key">The key to decrypt the token.</param>
+        /// <param name="autoRefresh">Creates a new token if the token is half past expiration time (and still valid).</param>
         /// <param name="cookieName">Name of the cookie where the jwt is (defaults to jwt).</param>
-        public static void UseJwtCookieMiddleware(this IApplicationBuilder app, byte[] key, string cookieName = "jwt")
+        /// <param name="csrfCookieName">Name of the cookie where the request token is stored.</param>
+        public static void UseJwtCookieMiddleware(this IApplicationBuilder app,
+                                                  IAntiforgery antiforgery,
+                                                  byte[] key,
+                                                  bool autoRefresh = true,
+                                                  string cookieName = "jwt",
+                                                  string csrfCookieName = "XSRF-TOKEN")
         {
             app.Use(async (context, next) =>
             {
@@ -43,6 +54,10 @@ namespace Pati.Middleware
                     ValidateIssuer = false
                 };
 
+                ClaimsIdentity claimsIdentity = null;
+                ClaimsPrincipal newPrincipal;
+                JwtSecurityToken jwtToken = null;
+
                 try
                 {
                     var claimsPrincipal = new JwtSecurityTokenHandler()
@@ -50,7 +65,7 @@ namespace Pati.Middleware
                                                              validationParameters,
                                                              out var rawValidatedToken);
                     //rawValidatedToken.
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity("AuthenticationTypes.Federation");
+                    claimsIdentity = new ClaimsIdentity("AuthenticationTypes.Federation");
                     foreach (var claim in claimsPrincipal.Claims)
                     {
                         if (claim.Type == "iat" ||
@@ -62,19 +77,63 @@ namespace Pati.Middleware
 
                         claimsIdentity.AddClaim(claim);
                     }
-                    ClaimsPrincipal newPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    newPrincipal = new ClaimsPrincipal(claimsIdentity);
                     context.User = newPrincipal;
 
-                    var jwtToken = rawValidatedToken as JwtSecurityToken;
+                    jwtToken = rawValidatedToken as JwtSecurityToken;
                     context.Items[Constants.JwtTokenKey] = jwtToken;
                 }
                 catch (Exception)
                 {
-                    // TODO: Log..
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append(csrfCookieName,
+                                                    tokens.RequestToken,
+                                                    new CookieOptions() { HttpOnly = false });
+                    context.Response.Cookies.Delete(cookieName);
                 }
 
+                if (autoRefresh &&
+                    jwtToken != null &&
+                    claimsIdentity != null)
+                {
+                    CheckAndRefreshToken(key, claimsIdentity, jwtToken, cookieName, context);
+                }
+                
                 await next();
             });
+        }
+
+        private static void CheckAndRefreshToken(byte[] key, ClaimsIdentity claimsIdentity, JwtSecurityToken jwtToken, string cookieName, HttpContext context)
+        {
+            TimeSpan spanToken = jwtToken.ValidTo - jwtToken.IssuedAt;
+            TimeSpan spanExpire = jwtToken.ValidTo - DateTime.UtcNow;
+
+            double secondsToken = spanToken.TotalSeconds;
+            double secondsExpire = spanExpire.TotalSeconds;
+
+            if (secondsExpire > (secondsToken / 2) )
+            {
+                return;
+            }
+
+            var token = GenerateNewJwtToken(key, claimsIdentity, spanToken);
+            context.Response.Cookies.Append(cookieName,
+                                            token,
+                                            new CookieOptions() { HttpOnly = true });
+        }
+
+        private static string GenerateNewJwtToken(byte[] key, ClaimsIdentity claimsIdentity, TimeSpan expiration)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = claimsIdentity,
+                Expires = DateTime.UtcNow + expiration,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
