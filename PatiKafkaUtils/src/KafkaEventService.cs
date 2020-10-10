@@ -2,6 +2,8 @@
 using Pati.Infrastructure;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using Pati.KafkaUtils.Option;
+using Microsoft.Extensions.Options;
 
 namespace Pati.KafkaUtils
 {
@@ -10,27 +12,46 @@ namespace Pati.KafkaUtils
     /// </summary>
     public class KafkaEventService: IEventService
     {
-        private readonly string _connectionStr;
+        private readonly KafkaSettings _kafkaSettings;
 
-        public KafkaEventService(string connectionStr)
+        public KafkaEventService(IOptions<KafkaSettings> kafkaSettings)
         {
-            _connectionStr = connectionStr;
+            _kafkaSettings = kafkaSettings.Value;
+        }
+
+        private ProducerConfig GetProducerConfig()
+        {
+            return new ProducerConfig
+            {
+                BootstrapServers = _kafkaSettings.ConnectionString,
+                Acks = Acks.Leader,
+                MessageTimeoutMs = _kafkaSettings.MessageTimeoutMs
+            };
         }
 
         public async Task SendEventAsync<T>(string topic, string eventKey, T eventInstance)
         {
-            var config = new ProducerConfig
-            {
-                BootstrapServers = _connectionStr,
-                Acks = Acks.Leader,
-                MessageTimeoutMs = 1000
-            };
+            var config = GetProducerConfig();
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
                 var result = await producer.ProduceAsync(topic, new Message<string, string>
                 {
                     Key = eventKey,
+                    Value = JsonConvert.SerializeObject(eventInstance)
+                });
+            }
+        }
+
+        public async Task SendEventAsync<K,T>(string topic, K eventKey, T eventInstance)
+        {
+            var config = GetProducerConfig();
+
+            using (var producer = new ProducerBuilder<string, string>(config).Build())
+            {
+                var result = await producer.ProduceAsync(topic, new Message<string, string>
+                {
+                    Key = JsonConvert.SerializeObject(eventKey),
                     Value = JsonConvert.SerializeObject(eventInstance)
                 });
             }

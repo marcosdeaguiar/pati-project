@@ -6,3 +6,4 @@ copy PatiValidationService\src\bin\Release\*.nupkg Release\
 copy PatiValidators\src\bin\Release\*.nupkg Release\
 copy PatiEFUtils\src\bin\Release\*.nupkg Release\
 copy PatiKafkaUtils\src\bin\Release\*.nupkg Release\
+copy PatiMessagingCore\src\bin\Release\*.nupkg Release\
