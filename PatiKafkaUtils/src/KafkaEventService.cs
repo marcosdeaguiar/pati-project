@@ -56,5 +56,33 @@ namespace Pati.KafkaUtils
                 });
             }
         }
+
+        public void SendEvent<T>(string topic, string eventKey, T eventInstance)
+        {
+            var config = GetProducerConfig();
+
+            using (var producer = new ProducerBuilder<string, string>(config).Build())
+            {
+                producer.Produce(topic, new Message<string, string>
+                {
+                    Key = eventKey,
+                    Value = JsonConvert.SerializeObject(eventInstance)
+                });
+            }
+        }
+
+        public void SendEvent<K, T>(string topic, K eventKey, T eventInstance)
+        {
+            var config = GetProducerConfig();
+
+            using (var producer = new ProducerBuilder<string, string>(config).Build())
+            {
+                producer.Produce(topic, new Message<string, string>
+                {
+                    Key = JsonConvert.SerializeObject(eventKey),
+                    Value = JsonConvert.SerializeObject(eventInstance)
+                });
+            }
+        }
     }
 }
