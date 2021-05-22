@@ -63,11 +63,13 @@ namespace Pati.KafkaUtils
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
-                producer.Produce(topic, new Message<string, string>
+                Task res = producer.ProduceAsync(topic, new Message<string, string>
                 {
                     Key = eventKey,
                     Value = JsonConvert.SerializeObject(eventInstance)
                 });
+
+                Task.WaitAll(res);
             }
         }
 
@@ -77,11 +79,13 @@ namespace Pati.KafkaUtils
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
-                producer.Produce(topic, new Message<string, string>
+                Task res = producer.ProduceAsync(topic, new Message<string, string>
                 {
                     Key = JsonConvert.SerializeObject(eventKey),
                     Value = JsonConvert.SerializeObject(eventInstance)
                 });
+
+                Task.WaitAll(res);
             }
         }
     }
