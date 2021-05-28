@@ -1,0 +1,9 @@
+cp PatiCore/src/bin/Release/*.nupkg Release
+cp PatiInfrastructure/src/bin/Release/*.nupkg Release
+cp PatiMiddleware/src/bin/Release/*.nupkg Release
+cp PatiValidationCore/src/bin/Release/*.nupkg Release
+cp PatiValidationService/src/bin/Release/*.nupkg Release
+cp PatiValidators/src/bin/Release/*.nupkg Release
+cp PatiEFUtils/src/bin/Release/*.nupkg Release
+cp PatiKafkaUtils/src/bin/Release/*.nupkg Release
+cp PatiMessagingCore/src/bin/Release/*.nupkg Release
