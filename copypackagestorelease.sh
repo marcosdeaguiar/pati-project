@@ -7,3 +7,4 @@ cp PatiValidators/src/bin/Release/*.nupkg Release
 cp PatiEFUtils/src/bin/Release/*.nupkg Release
 cp PatiKafkaUtils/src/bin/Release/*.nupkg Release
 cp PatiMessagingCore/src/bin/Release/*.nupkg Release
+cp PatiRedisUtils/src/bin/Release/*.nupkg Release
