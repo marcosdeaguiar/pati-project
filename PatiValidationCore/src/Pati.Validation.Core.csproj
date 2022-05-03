@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Marcos de Aguiar</Copyright>
     <Description>Base classes for building validators.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

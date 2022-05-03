@@ -38,7 +38,7 @@ namespace Pati.EFUtils
 
                 foreach (var index in entity.GetIndexes())
                 {
-                    index.SetName(ToSnakeCase(index.GetName()));
+                    index.SetDatabaseName(ToSnakeCase(index.GetDatabaseName()));
                 }
             }
         }

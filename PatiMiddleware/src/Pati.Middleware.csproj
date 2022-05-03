@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Marcos de Aguiar</Copyright>
     <Description>Middlewares and action filters to be used in asp.net core applications.</Description>
@@ -12,8 +12,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
   </ItemGroup>
 
   <ItemGroup>

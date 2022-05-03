@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Redis util classes for development.</Description>
     <Copyright>Marcos de Aguiar</Copyright>
@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+    <PackageReference Include="StackExchange.Redis" Version="2.5.61" />
   </ItemGroup>
 
   <ItemGroup>

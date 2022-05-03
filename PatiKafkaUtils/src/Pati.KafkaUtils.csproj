@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Kafka helper class.</Description>
     <Copyright>Marcos de Aguiar</Copyright>
@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="1.5.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
