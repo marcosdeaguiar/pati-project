@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29326.143
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PatiValidationCore", "PatiValidationCore", "{2E5F136B-E94A-407C-9C47-BD61DF049F2F}"
 EndProject
@@ -63,6 +63,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{92B40ABE-769
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pati.RedisUtils", "PatiRedisUtils\src\Pati.RedisUtils.csproj", "{92C08CE8-58CF-46B2-8A62-73A7A02C0166}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BD7E4E93-3A05-42D3-A0A1-32143713800C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pati.Validators.Test", "PatiValidators\test\Pati.Validators.Test.csproj", "{D836FF27-00C9-4A7E-8B62-2564C751DEF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +113,10 @@ Global
 		{92C08CE8-58CF-46B2-8A62-73A7A02C0166}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92C08CE8-58CF-46B2-8A62-73A7A02C0166}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92C08CE8-58CF-46B2-8A62-73A7A02C0166}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D836FF27-00C9-4A7E-8B62-2564C751DEF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D836FF27-00C9-4A7E-8B62-2564C751DEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D836FF27-00C9-4A7E-8B62-2564C751DEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D836FF27-00C9-4A7E-8B62-2564C751DEF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +142,8 @@ Global
 		{06DEEE69-F9DD-4FED-B7CF-9C903568B8A3} = {A9520D94-36BC-4449-A048-FB58C62E8B96}
 		{92B40ABE-7690-4EBE-A2E3-FCE4E4F387B8} = {053CA9CE-FFD3-4C51-A77D-6380BCD1C92C}
 		{92C08CE8-58CF-46B2-8A62-73A7A02C0166} = {92B40ABE-7690-4EBE-A2E3-FCE4E4F387B8}
+		{BD7E4E93-3A05-42D3-A0A1-32143713800C} = {886CCF1B-9BB7-4274-B393-E1E51D49AB2F}
+		{D836FF27-00C9-4A7E-8B62-2564C751DEF3} = {BD7E4E93-3A05-42D3-A0A1-32143713800C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A7A6AA7-6BC7-43E0-AF83-D72CE00E4ACB}

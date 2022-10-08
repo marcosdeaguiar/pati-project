@@ -56,11 +56,20 @@ namespace Pati.Validators
         {
             int sum = 0;
             int multi = 10;
+            bool allTheSame = true;
+            int firstVal = cpfArray[0];
 
             for (int i = 0; i < 9; i++)
             {
                 sum += multi * cpfArray[i];
                 multi--;
+
+                if (allTheSame && cpfArray[i] != firstVal) { allTheSame = false; }
+            }
+
+            if (allTheSame)
+            {
+                return false;
             }
 
             int digit = (sum * 10) % 11;
