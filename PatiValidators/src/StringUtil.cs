@@ -30,9 +30,10 @@ namespace Pati.Validators
         /// <returns>Return array of int with the numbers.</returns>
         public static int[] ToIntArray(string str)
         {
-            int[] intArray = new int[11];
+            int N = str.Length;
+            int[] intArray = new int[N];
 
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < N; i++)
             {
                 intArray[i] = (int)Char.GetNumericValue(str[i]);
             }
