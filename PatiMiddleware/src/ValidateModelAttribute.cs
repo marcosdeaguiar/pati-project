@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Pati.Middleware
 {
@@ -9,29 +11,14 @@ namespace Pati.Middleware
     /// </summary>
     public class ValidateModelAttribute : ActionFilterAttribute
     {
-        private readonly bool _sendValProblems;
-        
-        /// <summary>
-        /// Constructor for validate model attribute.
-        /// </summary>
-        /// <param name="sendValProblems">Send validation problems in ValidationProblems format.</param>
-        public ValidateModelAttribute(bool sendValProblems = true)
-        {
-            _sendValProblems = sendValProblems;
-        }
-        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {
-                if (_sendValProblems)
-                {
-                    context.Result = new BadRequestObjectResult(new ValidationProblemDetails(context.ModelState));
-                    return;
-                }
-                
-                var errors = ValidationUtil.GetValidationErrorsFromModelState(context.ModelState);
-                context.Result = new BadRequestObjectResult(errors);
+                var svc = context.HttpContext.RequestServices;
+                var probDetailsFactory = svc.GetService<ProblemDetailsFactory>();
+                var valProbDetails = probDetailsFactory.CreateValidationProblemDetails(context.HttpContext, context.ModelState);
+                context.Result = new BadRequestObjectResult(valProbDetails);
             }
         }
     }
