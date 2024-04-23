@@ -26,15 +26,9 @@ namespace Pati.Validators
                 return new ValidationResult(GetErrorMessage(validationContext));
             }
 
-
-            if (string.IsNullOrEmpty(cpf) || cpf.Length != 11 || !StringUtil.IsDigitsOnly(cpf))
-            {
-                return new ValidationResult(GetErrorMessage(validationContext));
-            }
-
             int[] cpfArray = StringUtil.ToIntArray(cpf);
 
-            if (!IsCPFValid(cpfArray))
+            if (!ValidationUtils.IsCPFValid(cpf))
             {
                 return new ValidationResult(GetErrorMessage(validationContext));
             }
@@ -51,62 +45,5 @@ namespace Pati.Validators
 
             return FormatErrorMessage(ErrorMessageString);
         }
-
-        private bool IsCPFValid(int[] cpfArray)
-        {
-            int sum = 0;
-            int multi = 10;
-            bool allTheSame = true;
-            int firstVal = cpfArray[0];
-
-            for (int i = 0; i < 9; i++)
-            {
-                sum += multi * cpfArray[i];
-                multi--;
-
-                if (allTheSame && cpfArray[i] != firstVal) { allTheSame = false; }
-            }
-
-            if (allTheSame)
-            {
-                return false;
-            }
-
-            int digit = (sum * 10) % 11;
-
-            if (digit == 10)
-            {
-                digit = 0;
-            }
-
-            if (digit != cpfArray[9])
-            {
-                return false;
-            }
-
-            multi = 11;
-            sum = 0;
-
-            for (int i = 0; i < 10; i++)
-            {
-                sum += multi * cpfArray[i];
-                multi--;
-            }
-
-            digit = (sum * 10) % 11;
-
-            if (digit == 10)
-            {
-                digit = 0;
-            }
-
-            if (digit != cpfArray[10])
-            {
-                return false;
-            }
-
-            return true;
-        }
-
     }
 }
