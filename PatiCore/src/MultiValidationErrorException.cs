@@ -13,20 +13,22 @@ namespace Pati.Core
         /// </summary>
         public int Status { get; set; }
 
-        public IEnumerable<ValidationError> ValidationErrors { get; set; }
+        public IDictionary<string, string[]> ValidationErrors { get; set; }
 
         /// <summary>
         /// Default constructor with default message.
         /// </summary>
-        public MultiValidationErrorException() : base("Bad request.")
+        /// <param name="message">Message to be sent.</param>
+        public MultiValidationErrorException(string message = "Bad request") : base(message)
         {
             Status = 400;
+            ValidationErrors = new Dictionary<string, string[]>();
         }
 
         /// <summary>
         /// Constructor that receives list of validation errors.
         /// </summary>
-        public MultiValidationErrorException(IEnumerable<ValidationError> validationErrors) : base("Bad request.")
+        public MultiValidationErrorException(IDictionary<string, string[]> validationErrors, string message="Bad request") : base(message)
         {
             Status = 400;
             ValidationErrors = validationErrors;
