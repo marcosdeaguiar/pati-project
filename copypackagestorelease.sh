@@ -1,4 +1,5 @@
 cp PatiCore/src/bin/Release/*.nupkg Release
+cp PatiFluentResults/src/bin/Release/*.nupkg Release
 cp PatiInfrastructure/src/bin/Release/*.nupkg Release
 cp PatiMiddleware/src/bin/Release/*.nupkg Release
 cp PatiValidationCore/src/bin/Release/*.nupkg Release
