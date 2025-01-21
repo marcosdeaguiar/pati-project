@@ -23,7 +23,7 @@ public static class ControllerBaseExtensions
         return modelStateDict;
     }
     
-    public static IActionResult HandleError(this ControllerBase controller, Error error)
+    public static IActionResult HandleError(this ControllerBase controller, IError error)
     {
         return error switch
         {
