@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PatiCore\src\Pati.Core.csproj" />
+    <ProjectReference Include="..\..\PatiFluentResults\src\Pati.FluentResults.csproj" />
     <ProjectReference Include="..\..\PatiInfrastructure\src\Pati.Infrastructure.csproj" />
   </ItemGroup>
 
