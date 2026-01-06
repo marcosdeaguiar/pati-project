@@ -19,7 +19,14 @@ namespace Pati.RedisUtils
         public void SetString(string key, string value, TimeSpan? expiration = null)
         {
             var db = _connectionMultiplexer.GetDatabase();
-            db.StringSet(key, value, expiration);
+            
+            if (expiration is not null)
+            {
+                db.StringSet(key, value, new Expiration(expiration.Value));
+                return;
+            }
+            
+            db.StringSet(key, value);
         }
 
         public string GetString(string key)
@@ -32,7 +39,14 @@ namespace Pati.RedisUtils
         {
             var db = _connectionMultiplexer.GetDatabase();
             var jsonValue = JsonConvert.SerializeObject(value);
-            db.StringSet(key, jsonValue, expiration);
+
+            if (expiration is not null)
+            {
+                db.StringSet(key, jsonValue, new Expiration(expiration.Value));
+                return;
+            }
+
+            db.StringSet(key, jsonValue);
         }
 
         public T GetValue<T>(string key)
@@ -74,7 +88,14 @@ namespace Pati.RedisUtils
         public async Task SetStringAsync(string key, string value, TimeSpan? expiration = null)
         {
             var db = _connectionMultiplexer.GetDatabase();
-            await db.StringSetAsync(key, value, expiration);
+            
+            if (expiration is not null)
+            {
+                db.StringSet(key, value, new Expiration(expiration.Value));
+                return;
+            }
+            
+            await db.StringSetAsync(key, value);
         }
 
         public async Task<string> GetStringAsync(string key)
@@ -87,7 +108,14 @@ namespace Pati.RedisUtils
         {
             var db = _connectionMultiplexer.GetDatabase();
             var jsonValue = JsonConvert.SerializeObject(value);
-            await db.StringSetAsync(key, jsonValue, expiration);
+            
+            if (expiration is not null)
+            {
+                await db.StringSetAsync(key, jsonValue, new Expiration(expiration.Value));
+                return;
+            }
+            
+            await db.StringSetAsync(key, jsonValue);
         }
 
         public async Task<T> GetValueAsync<T>(string key)
